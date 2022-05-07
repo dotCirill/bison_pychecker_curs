@@ -32,6 +32,9 @@
 %option noyywrap nounistd yylineno outfile="scanner.c" header="scanner.h"
 
 NAME ([_a-zA-Z][_a-zA-Z0-9]*)
+ESCAPED_CHAR (\\.|\\\n)
+STRING_QUOTE2 (\"([^\\\"]|{ESCAPED_CHAR})*\")
+STRING_QUOTE ({STRING_QUOTE2})
 NUMBER ([0-9]+)
 
 %%
@@ -206,6 +209,10 @@ or {
 
 {NUMBER} {
     return NUMBER;
+}
+
+{STRING_QUOTE} {
+    return STRING;
 }
 
 \n {
