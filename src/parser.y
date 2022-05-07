@@ -79,10 +79,7 @@ main: program {printf("Syntax is OK!\n");}
 program: stmt | stmt program
 stmt: simple_stmt | compound_stmt
 
-mb_semicolon: | ';'
-
-simple_stmt: small_stmt small_stmt_more mb_semicolon NEWLINE
-small_stmt_more: | ';' small_stmt small_stmt_more 
+simple_stmt: small_stmt NEWLINE | small_stmt ';' NEWLINE | small_stmt ';' simple_stmt
 small_stmt: 
   expr_stmt | del_stmt | pass_stmt | flow_stmt | import_stmt |
   global_stmt | nonlocal_stmt | assert_stmt
@@ -99,7 +96,7 @@ flow_stmt:
    RETURN | RETURN testlist | yield_expr |
    RAISE | RAISE test | RAISE test FROM test
 
-import_stmt: BREAK BREAK BREAK
+import_stmt: BREAK BREAK BREAK NEWLINE
 
 global_stmt: GLOBAL namelist
 nonlocal_stmt: NONLOCAL namelist
@@ -109,11 +106,11 @@ compound_stmt:
   if_stmt | while_stmt | for_stmt | with_stmt | funcdef | 
   classdef | decorated
 
-decorated: BREAK BREAK BREAK
+decorated: BREAK BREAK BREAK NEWLINE
 
 if_stmt:  IF test ':' suite if_elifs if_else
 if_elifs: | ELIF test ':' suite if_elifs
-if_else: | ELSE ':' test
+if_else: | ELSE ':' suite
 
 while_stmt: WHILE test ':' suite while_else
 while_else: if_else
@@ -121,15 +118,11 @@ while_else: if_else
 for_stmt: FOR exprlist IN testlist ':' suite for_else
 for_else: while_else
 
-try_stmt: TRY TRY TRY TRY
+try_stmt: TRY TRY TRY TRY NEWLINE
 
 with_stmt: WITH with_itemlist ':' suite
-funcdef: 
-  DEF NAME '(' ')' ':' suite |
-  DEF NAME '(' varargslist ')' ':' suite
 
-
-suite: simple_stmt | // TODO
+suite: simple_stmt | NEWLINE // TODO
 
 //////////////////////////
 //////////
@@ -205,8 +198,6 @@ yield_arg: FROM test | testlist
 //////////
 //////////////////////////
 
-mb_comma: | ','
-
 arglist: argument | argument ',' arglist
 argument:  test
   /* test |
@@ -241,7 +232,6 @@ vararg: NAME var_arg_mb_eq
 var_arg_mb_eq: | '=' test
 vararg_args: '*' NAME
 vararg_kwargs: TWOSTAR NAME
-varargslist_kwargs_with_comma_mb: | ',' vararg_kwargs
 
 testlist: test | test ',' | test ',' testlist
 
@@ -287,6 +277,10 @@ classdef:
   CLASS NAME ':' suite |
   CLASS NAME '(' ')' ':' suite |
   CLASS NAME '(' arglist ')' ':' suite
+
+funcdef: 
+  DEF NAME '(' ')' ':' suite |
+  DEF NAME '(' varargslist ')' ':' suite
 
 %%
 
