@@ -75,8 +75,8 @@
 
 %%
 
-main: stmt stmt_more {printf("Syntax is OK!\n");}
-stmt_more: | stmt stmt_more
+main: program {printf("Syntax is OK!\n");}
+program: stmt | stmt program
 stmt: simple_stmt | compound_stmt
 
 mb_semicolon: | ';'
@@ -146,11 +146,9 @@ test:
   or_test IF or_test ELSE test |
   lambdadef
 
-or_test: and_test or_test_ors
-or_test_ors: | OR or_test or_test_ors
+or_test: and_test | and_test OR or_test
 
-and_test: not_test and_test_ands
-and_test_ands: | AND and_test and_test_ands
+and_test: not_test | not_test AND and_test
 
 not_test: NOT not_test | comparison
 
@@ -159,25 +157,19 @@ comparison_comp_ops: | comp_op expr comparison_comp_ops
 comp_op: EQ | NEQ | LE | GE | LT | GT | IN | NOT IN | IS | IS NOT
 
 // PRIORITY  |, ^, &, << >>, + -, * / // %, +x -x ~x, **, ()
-expr: xor_expr expr_ors
-expr_ors: | '|' xor_expr expr_ors
+expr: xor_expr | xor_expr '|' expr
 
-xor_expr: and_expr xor_expr_xors
-xor_expr_xors: | '^' and_expr xor_expr_xors
+xor_expr: and_expr | and_expr '^' xor_expr
 
-and_expr: shift_expr and_expr_ands
-and_expr_ands: | '&' shift_expr and_expr_ands
+and_expr: shift_expr | shift_expr '&' and_expr
 
-shift_expr: arith_expr shift_expr_shifts
-shift_expr_shifts: | shift arith_expr shift_expr_shifts
+shift_expr: arith_expr | arith_expr shift shift_expr
 shift: LSHIFT | RSHIFT
 
-arith_expr: term_expr arith_expr_ariths
-arith_expr_ariths: | arith term_expr arith_expr_ariths
+arith_expr: term_expr | term_expr arith arith_expr
 arith: '+' | '-'
 
-term_expr: factor_expr term_expr_ops
-term_expr_ops: | term_ops factor_expr term_expr_ops
+term_expr: factor_expr | factor_expr term_ops term_expr
 term_ops: '*' | '/' | TWODIR | '%' | '@'
 
 factor_expr: factor_ops factor_expr | power_expr 
@@ -193,7 +185,7 @@ atom_expr_tailer:
   | '.' NAME
 
 atom: 
-  NAME | NUMBER | STRING atom_strings_zero_or_more | 
+  NAME | NUMBER | strings | 
   TRUE | FALSE | NONE | ELLIPSE |
   '(' yield_expr ')' |
   '(' testlist_comp ')' |
@@ -202,7 +194,7 @@ atom:
   // todo list comp, dict comp, generator comp
 
 
-atom_strings_zero_or_more: | STRING atom_strings_zero_or_more
+strings: STRING | STRING strings
 
 yield_expr: YIELD | YIELD yield_arg
 yield_arg: FROM test | testlist
@@ -215,8 +207,7 @@ yield_arg: FROM test | testlist
 
 mb_comma: | ','
 
-arglist: argument arglist_more
-arglist_more: | ',' arglist arglist_more
+arglist: argument | argument ',' arglist
 argument:  test
   /* test |
   test comp_for |
@@ -224,44 +215,45 @@ argument:  test
   TWOSTAR test  |
   '*' test */
 
-subscriptlist: subscript subscriptlist_more mb_comma
-subscriptlist_more: | ',' subscript subscriptlist_more
+subscriptlist: subscript | subscript ',' | subscript ',' subscriptlist
 mb_test: | test
 mb_sliceop: | ':' mb_test
 subscript:
   test |
   mb_test ':' mb_test mb_sliceop
 
-exprlist: expr_mb_with_star exprlist_more mb_comma
-exprlist_more: | ',' expr_mb_with_star
+exprlist: expr_mb_with_star | expr_mb_with_star ',' | expr_mb_with_star ',' exprlist
 expr_mb_with_star: expr | '*' expr
 
 varargslist: 
   vararg | 
+  vararg ',' |
   vararg ',' varargslist |
-  vararg_args varargslist_kwargs_with_comma_mb mb_comma | 
-  vararg_kwargs mb_comma
+  vararg ',' varargslist_args
+varargslist_args:
+  vararg_args |
+  vararg_args ',' |
+  vararg_args ',' varargslist_kwards
+varargslist_kwards:
+  vararg_kwargs |
+  vararg_kwargs ','
 vararg: NAME var_arg_mb_eq
+var_arg_mb_eq: | '=' test
 vararg_args: '*' NAME
 vararg_kwargs: TWOSTAR NAME
-var_arg_mb_eq: | '=' test
 varargslist_kwargs_with_comma_mb: | ',' vararg_kwargs
 
-testlist: test testlist_more mb_comma
-testlist_more: | ',' test testlist_more
+testlist: test | test ',' | test ',' testlist
 
 test_or_star_expr_list: test_or_star_expr |
                         test_or_star_expr ',' | 
                         test_or_star_expr ',' test_or_star_expr_list
 test_or_star_expr: test | star_expr
 
-namelist: NAME namelistmore
-namelistmore: | ',' NAME namelistmore
+namelist: NAME | NAME ',' namelist
 
 with_item: test | test AS expr
-with_itemlist: with_item with_items_more
-with_items_more: | ',' with_item with_items_more
-
+with_itemlist: with_item | with_item ',' with_itemlist
 
 testlist_comp: test_or_star_expr comp_for | test_or_star_expr_list
 
@@ -292,9 +284,9 @@ lambdef_nocond:
   LAMBDA varargslist ':' test_nocond
 
 classdef: 
-  CLASS NAME classdef_bracket ':' suite |
-classdef_bracket: | '(' classdef_in_bracket ')'
-classdef_in_bracket: | arglist
+  CLASS NAME ':' suite |
+  CLASS NAME '(' ')' ':' suite |
+  CLASS NAME '(' arglist ')' ':' suite
 
 %%
 
