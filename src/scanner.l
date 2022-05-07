@@ -31,6 +31,9 @@
 
 %option noyywrap nounistd yylineno outfile="scanner.c" header="scanner.h"
 
+NAME ([_a-zA-Z][_a-zA-Z0-9]*)
+NUMBER ([0-9]+)
+
 %%
 
 lambda {
@@ -105,6 +108,10 @@ return {
     return RETURN;
 }
 
+yield {
+    return YIELD;
+}
+
 try {
     return TRY;
 }
@@ -153,6 +160,22 @@ with {
     return NEQ;
 }
 
+"**" {
+    return TWOSTAR;
+}
+
+"//" {
+    return TWODIR;
+}
+
+"<<" {
+    return LSHIFT;
+}
+
+">>" {
+    return RSHIFT;
+}
+
 not {
     return NOT;
 }
@@ -173,6 +196,23 @@ or {
     return OR;
 }
 
+{NAME} {
+    return NAME;
+}
+
+\.\.\. {
+    return ELLIPSE;
+}
+
+{NUMBER} {
+    return NUMBER;
+}
+
+\n {
+    return NEWLINE;
+}
+
+
 [ \t]+ {
     // TODO: Something with Ident
 }
@@ -181,7 +221,7 @@ or {
    // ignore 
 }
 
-#.* {
+#.*\n {
     // comment
 }
 
