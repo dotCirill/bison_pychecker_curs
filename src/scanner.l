@@ -271,6 +271,10 @@ or {
     return YY_NULL;
 }
 
+\\\n[ \t]* {
+    // ignore: Explicit line joining
+}
+
 \n+ {
     return NEWLINE;
 }

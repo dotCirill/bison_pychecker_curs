@@ -11,3 +11,8 @@ for a, *b, in lambda X, *C, **D,: X^C@D and 7 == (lambda: lambda: ... if [...,(3
 print(a, **b, **c, *b, end=" ") or print(b) and print(c) + 1
 a[zbb].zxcv, (x.a, b.c,),().x[2 if 3 else 4], = b, [c, a, z, (), (), []] =  (c if a else d)
 a[zbb].zxcv += (c if a else d)
+
+if a \
+   and b \
+   or c:
+        pass
