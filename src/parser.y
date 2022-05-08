@@ -209,12 +209,12 @@ yield_arg: FROM test | testlist
 //////////////////////////
 
 arglist: argument | argument ',' arglist
-argument:  test
-  /* test |
+argument:  
+  test          |
   test comp_for |
   test '=' test |
   TWOSTAR test  |
-  '*' test */
+  '*' test
 
 subscriptlist: subscript | subscript ',' | subscript ',' subscriptlist
 mb_test: | test
