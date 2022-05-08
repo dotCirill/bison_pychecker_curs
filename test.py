@@ -18,3 +18,12 @@ if a \
         pass
 
 f"asdf" fr"asdf"  f"asdf"
+
+a = """ '''
+	asgasdf "" asdgadsg ""\"
+"""
+
+a = ''' 
+	asgasdf '' asdgadsg ''\'
+'''
+
