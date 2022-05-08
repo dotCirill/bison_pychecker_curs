@@ -64,6 +64,8 @@
 %token LSHIFT
 %token RSHIFT
 
+%token OPASSIGN
+
 %token NAME
 %token NUMBER
 %token STRING
@@ -88,9 +90,14 @@ small_stmt:
   global_stmt | nonlocal_stmt | assert_stmt
 
 expr_stmt: 
-  test_or_star_expr_list '=' yield_expr |
-  test_or_star_expr_list '=' testlist
-// todo: add +=, -=, &=, ..., a =a = ..  =a =a 
+  testlist |
+  expr_stmt_assign_lst |
+  atom_expr OPASSIGN yield_expr |
+  atom_expr OPASSIGN testlist
+expr_stmt_assign_lst:
+  testlist '=' yield_expr |
+  testlist '=' testlist |
+  testlist '=' expr_stmt_assign_lst
 
 del_stmt: DEL exprlist
 pass_stmt: PASS
