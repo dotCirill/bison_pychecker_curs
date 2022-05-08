@@ -17,7 +17,8 @@ if a \
    or c:
         pass
 
-f"asdf" fr"asdf"  f"asdf"
+f"asdf" fr"a\
+sdf"  f"asdf"
 
 a = """ '''
 	asgasdf "" asdgadsg ""\"
