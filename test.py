@@ -16,3 +16,5 @@ if a \
    and b \
    or c:
         pass
+
+f"asdf" fr"asdf"  f"asdf"
