@@ -12,6 +12,7 @@
 
 %locations
 %define parse.error verbose
+%define api.push-pull push
 
 %token LAMBDA
 %token DEF
@@ -72,6 +73,8 @@
 %token NONE
 
 %token NEWLINE
+%token INDENT
+%token DEINDENT
 
 %%
 
@@ -122,7 +125,7 @@ try_stmt: TRY TRY TRY TRY NEWLINE
 
 with_stmt: WITH with_itemlist ':' suite
 
-suite: simple_stmt | NEWLINE // TODO
+suite: simple_stmt | NEWLINE INDENT program DEINDENT
 
 //////////////////////////
 //////////
