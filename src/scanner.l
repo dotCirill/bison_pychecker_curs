@@ -88,7 +88,13 @@ LONG_STRING_QUOTE1 ('''{INSIDE_LONG_QUOTE1}''')
 LONG_STRING_QUOTE2 (\"\"\"{INSIDE_LONG_QUOTE2}\"\"\")
 STRING_QUOTE ({STRING_PREFIX}?)({STRING_QUOTE1}|{STRING_QUOTE2}|{LONG_STRING_QUOTE1}|{LONG_STRING_QUOTE2})
 
-NUMBER ([0-9]+)
+/* For some reason "000123" is invalid INT10, but "00000" is valid */
+INT10 ([1-9](_?[0-9])*)|(0(_?0)*)
+INT2 0[bB](_?[01])+
+INT8 0[oO](_?[0-7])+
+INT16 0[xX](_?[0-9a-fA-F])+
+INT ({INT10}|{INT2}|{INT8}|{INT16})
+NUMBER ({INT})
 
 %%
 
