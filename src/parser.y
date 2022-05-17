@@ -183,7 +183,8 @@ power_expr: atom_expr | atom_expr TWOSTAR factor_expr
 atom_expr: atom atom_expr_tailers
 atom_expr_tailers: | atom_expr_tailer atom_expr_tailers
 atom_expr_tailer: 
-     '(' arglist ')' 
+    '(' arglist ')'
+  | '(' ')'
   | '[' subscriptlist ']' 
   | '.' NAME
 
