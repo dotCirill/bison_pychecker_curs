@@ -208,8 +208,8 @@ yield_arg: FROM test | testlist
 //////////
 //////////////////////////
 
-arglist: argument | argument ',' arglist
-argument:  
+arglist: argument | argument ',' | argument ',' arglist
+argument:
   test          |
   test comp_for |
   test '=' test |
