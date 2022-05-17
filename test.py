@@ -33,3 +33,12 @@ a = '''
 print(1,)
 (1 for i in range(1))
 [1 for i in range(1)]
+
+global abc, cde
+nonlocal abc, cde
+with open("abc") as f, open("abc") as g:
+	pass
+
+@func1
+@func2
+def a(): pass

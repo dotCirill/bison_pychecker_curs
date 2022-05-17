@@ -5,6 +5,7 @@
   int yylex();
   void yyerror(const char *s);
   int yylineno;
+
 }
 
 %defines "parser.h"
@@ -116,7 +117,9 @@ compound_stmt:
   if_stmt | while_stmt | for_stmt | with_stmt | funcdef | 
   classdef | decorated
 
-decorated: BREAK BREAK BREAK NEWLINE
+decorated: decorators classdef | decorators funcdef
+decorators: decorator | decorator decorators
+decorator: '@' test NEWLINE
 
 if_stmt:  IF test ':' suite if_elifs if_else
 if_elifs: | ELIF test ':' suite if_elifs
