@@ -1,3 +1,6 @@
+from ...a import b as e, c as d
+import a, b as c, e
+
 for a, *b, in lambda X, *C, **D,: X^C@D and 7 == (lambda: lambda: ... if [...,(3 for _ in X),] is not [] else ()):
 	while qwe <= 123 <= 12 in abc:
 		if -------3+3**3**-9**-66 > 5%"abc" 'qwe':
@@ -42,3 +45,9 @@ with open("abc") as f, open("abc") as g:
 @func1
 @func2
 def a(): pass
+
+import a, b.casadf as f
+from x import *
+from x import (a, b as c, e as c)
+from x import c, x
+

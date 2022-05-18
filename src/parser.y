@@ -107,7 +107,22 @@ flow_stmt:
    RETURN | RETURN testlist | yield_expr |
    RAISE | RAISE test | RAISE test FROM test
 
-import_stmt: BREAK BREAK BREAK NEWLINE
+import_stmt: import_as_names | import_from
+
+import_as_names: IMPORT dotted_names_as
+dotted_names_as: dotted_name_as | dotted_name_as ',' dotted_names_as
+dotted_name_as: dotted_name | dotted_name AS NAME
+dotted_name: NAME | NAME '.' dotted_name
+
+import_from: 
+  import_from_start IMPORT '*' |
+  import_from_start IMPORT dotted_names_as |
+  import_from_start IMPORT '(' dotted_names_as ')'
+import_from_start: 
+  FROM import_from_dots dotted_name | 
+  FROM import_from_dots | 
+  FROM dotted_name
+import_from_dots: '.' | ELLIPSE | '.' import_from_dots | ELLIPSE import_from_dots 
 
 global_stmt: GLOBAL namelist
 nonlocal_stmt: NONLOCAL namelist
