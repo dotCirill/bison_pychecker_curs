@@ -74,3 +74,25 @@ from x import c, x
 {
 
 }
+
+try:
+	a=1
+except:
+		b=1
+else:
+	func1()
+	b=1
+	a=1
+finally:
+				c=1
+
+
+try:
+	a=1
+except exp as abs:
+	b=1
+else:
+	func()
+
+try: a=1
+except a: func()

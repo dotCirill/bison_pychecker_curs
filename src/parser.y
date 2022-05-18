@@ -130,7 +130,7 @@ assert_stmt: ASSERT testlist
 
 compound_stmt: 
   if_stmt | while_stmt | for_stmt | with_stmt | funcdef | 
-  classdef | decorated
+  classdef | decorated | try_stmt
 
 decorated: decorators classdef | decorators funcdef
 decorators: decorator | decorator decorators
@@ -146,7 +146,17 @@ while_else: if_else
 for_stmt: FOR exprlist IN testlist ':' suite for_else
 for_else: while_else
 
-try_stmt: TRY TRY TRY TRY NEWLINE
+except_clause: 
+  EXCEPT |
+  EXCEPT test |
+  EXCEPT test AS NAME 
+simple_try_stmt: TRY ':' suite except_clause ':' suite 
+try_stmt_tailers: 
+  ELSE ':' suite |
+  ELSE ':' suite FINALLY ':' suite |
+  FINALLY ':' suite
+try_stmt: simple_try_stmt | simple_try_stmt try_stmt_tailers
+
 
 with_stmt: WITH with_itemlist ':' suite
 
