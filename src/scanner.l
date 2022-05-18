@@ -4,6 +4,11 @@
 
   yypstate *ps = NULL;
   extern int yychar;
+  
+  // Expressions in parentheses, 
+  // square brackets or curly braces can be split 
+  // over more than one physical line without using backslashes. 
+  int implicit_line_joining_opened_brackets = 0;
 
   static int push_token(int token) {
     static int last_was_newline = 0;
@@ -299,12 +304,25 @@ or {
     // ignore: Explicit line joining
 }
 
+\[|\(|\{ {
+    implicit_line_joining_opened_brackets++;
+    return yytext[0];
+}
+
+\]|\)|\} {
+    implicit_line_joining_opened_brackets--;
+    return yytext[0];
+}
+
 \n+ {
+    if (implicit_line_joining_opened_brackets) {
+        YY_BREAK;
+    }
     return NEWLINE;
 }
 
 [ \t]+ {
-    if (!indent_info.prev_newline) {
+    if (!indent_info.prev_newline || implicit_line_joining_opened_brackets) {
         YY_BREAK;
     }
     

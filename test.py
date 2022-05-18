@@ -1,3 +1,4 @@
+from tkinter import Y
 from ...a import b as e, c as d
 import a, b as c, e
 
@@ -37,8 +38,10 @@ print(1,)
 (1 for i in range(1))
 [1 for i in range(1)]
 
-global abc, cde
-nonlocal abc, cde
+def abc():
+	global abc, cde
+	print(a,)
+
 with open("abc") as f, open("abc") as g:
 	pass
 
@@ -51,3 +54,23 @@ from x import *
 from x import (a, b as c, e as c)
 from x import c, x
 
+(
+	a, b, c
+)
+
+[
+	a,
+	b,
+	c
+]
+
+[
+	x
+	for x in range(100)
+	if x % y
+		for y in (17, 91)
+]
+
+{
+
+}
