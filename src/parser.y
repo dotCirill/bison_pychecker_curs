@@ -147,11 +147,16 @@ while_else: if_else
 for_stmt: FOR exprlist IN testlist ':' suite for_else
 for_else: while_else
 
-except_clause: 
+simple_except_clause: 
   EXCEPT |
   EXCEPT test |
   EXCEPT test AS NAME 
-simple_try_stmt: TRY ':' suite except_clause ':' suite 
+except_clause:
+  simple_except_clause ':' suite | 
+  simple_except_clause ':' suite except_clause
+simple_try_stmt: 
+  TRY ':' suite except_clause |
+  TRY ':' suite FINALLY ':' suite
 try_stmt_tailers: 
   ELSE ':' suite |
   ELSE ':' suite FINALLY ':' suite |
