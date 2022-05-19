@@ -171,6 +171,7 @@ suite: simple_stmt | NEWLINE INDENT program DEINDENT
 test_nocond: or_test | lambdef_nocond
 
 star_expr: '*' expr
+double_star_expr: TWOSTAR expr
 
 test: 
   or_test |
@@ -224,7 +225,6 @@ atom:
   '[' testlist_comp ']' |
   '{' dictorsetmaker '}' |
   '(' ')' | '[' ']' | '{' '}'
-  // todo list comp, dict comp, generator comp
 
 
 strings: STRING | STRING strings
@@ -280,6 +280,14 @@ test_or_star_expr_list: test_or_star_expr |
                         test_or_star_expr ',' test_or_star_expr_list
 test_or_star_expr: test | star_expr
 
+// for dictionary
+test_colon_test_or_double_star_expr_list: test_colon_test_or_double_star_expr |
+                               test_colon_test_or_double_star_expr ',' |
+                               test_colon_test_or_double_star_expr ',' test_colon_test_or_double_star_expr_list
+
+test_colon_test: test ':' test
+test_colon_test_or_double_star_expr: test_colon_test | double_star_expr                      
+
 namelist: NAME | NAME ',' namelist
 
 with_item: test | test AS expr
@@ -288,10 +296,15 @@ with_itemlist: with_item | with_item ',' with_itemlist
 testlist_comp: test_or_star_expr comp_for | test_or_star_expr_list
 
 dictorsetmaker: 
-  test ':' test |
-  test ':' test ',' |
-  test ':' test ',' dictorsetmaker |
-  test ':' test comp_for
+  dictmaker | setmaker
+
+dictmaker:
+  test_colon_test_or_double_star_expr_list |
+  test_colon_test comp_for
+
+setmaker: 
+  test_or_star_expr_list |
+  test_or_star_expr comp_for
 
 //////////////////////////
 //////////
