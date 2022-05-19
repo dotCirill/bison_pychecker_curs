@@ -78,7 +78,7 @@
   #define CURRENT_LEVEL_INDENT_COUNT (indent_count[indent_info.indent_level])
 %}
 
-%option noyywrap nounistd yylineno outfile="scanner.c" header="scanner.h"
+%option debug noyywrap nounistd yylineno outfile="scanner.c" header="scanner.h"
 
 NAME ([_a-zA-Z][_a-zA-Z0-9]*)
 
@@ -321,6 +321,11 @@ or {
     return NEWLINE;
 }
 
+[ \t]*#.*\n {
+    // comment
+    // tabs and spaces at the begining are also ignored
+}
+
 [ \t]+ {
     if (!indent_info.prev_newline || implicit_line_joining_opened_brackets) {
         YY_BREAK;
@@ -379,10 +384,6 @@ or {
 
 [\r] {
    // ignore 
-}
-
-#.*\n {
-    // comment
 }
 
 . {
