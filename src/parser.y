@@ -82,7 +82,7 @@
 %%
 
 main: main_ {printf("Syntax is OK!\n");}
-main_: NEWLINE program | program
+main_: | NEWLINE | NEWLINE program | program
 program: stmt | stmt program 
 stmt: simple_stmt | compound_stmt
 
