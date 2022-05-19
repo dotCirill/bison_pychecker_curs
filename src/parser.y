@@ -206,7 +206,7 @@ term_expr: factor_expr | factor_expr term_ops term_expr
 term_ops: '*' | '/' | TWODIR | '%' | '@'
 
 factor_expr: factor_ops factor_expr | power_expr 
-factor_ops: '+' | '-'
+factor_ops: '+' | '-' | '~'
 
 power_expr: atom_expr | atom_expr TWOSTAR factor_expr
 

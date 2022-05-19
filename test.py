@@ -155,3 +155,5 @@ from django.views.generic.dates import (
 )
 
 *path, view = viewname.split(":")
+
+x = ~x
