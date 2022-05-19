@@ -222,6 +222,7 @@ atom:
   '(' yield_expr ')' |
   '(' testlist_comp ')' |
   '[' testlist_comp ']' |
+  '{' dictorsetmaker '}' |
   '(' ')' | '[' ']' | '{' '}'
   // todo list comp, dict comp, generator comp
 
@@ -285,6 +286,12 @@ with_item: test | test AS expr
 with_itemlist: with_item | with_item ',' with_itemlist
 
 testlist_comp: test_or_star_expr comp_for | test_or_star_expr_list
+
+dictorsetmaker: 
+  test ':' test |
+  test ':' test ',' |
+  test ':' test ',' dictorsetmaker |
+  test ':' test comp_for
 
 //////////////////////////
 //////////

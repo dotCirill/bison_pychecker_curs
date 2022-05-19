@@ -1,6 +1,16 @@
+
+
+
+
+
 from tkinter import Y
 from ...a import b as e, c as d
 import a, b as c, e
+
+
+
+
+func (f"{asd}")
 
 for a, *b, in lambda X, *C, **D,: X^C@D and 7 == (lambda: lambda: ... if [...,(3 for _ in X),] is not [] else ()):
 	while qwe <= 123 <= 12 in abc:
@@ -14,6 +24,7 @@ for a, *b, in lambda X, *C, **D,: X^C@D and 7 == (lambda: lambda: ... if [...,(3
 
 a[zbb].zxcv, (x.a, b.c,),().x[0B11_000_001 if 0x00f3 else 4_0], = b, [c, a, z, (), (), []] =  (c if a else d)
 a[zbb].zxcv += (c if a else d)
+
 
 if a \
    and b \
@@ -96,3 +107,20 @@ else:
 
 try: a=1
 except a: func()
+
+thisdict = {
+  A+B: "Ford", 
+  "model": "Mustang",
+  "year": 1964,
+}
+
+my_dict = {'name': wer&sesef, aadawd ^ sefseb: [2, 4, 3]}
+
+
+my_dict = { x: x*x for x in range(6)}
+
+
+class NodeInfo:
+    def __init__(self, node):
+        aawdawdawd
+        asdasd
