@@ -143,3 +143,13 @@ def make_file(self, fromlines, tolines, fromdesc='', todesc='',
 	pass
 
 def a(self, **kwargs): pass
+
+from django.views.generic.dates import (
+    ArchiveIndexView,
+    DateDetailView,
+    DayArchiveView,
+    MonthArchiveView,
+    TodayArchiveView,
+    WeekArchiveView,
+    YearArchiveView,
+)

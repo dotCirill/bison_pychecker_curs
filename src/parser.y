@@ -111,7 +111,7 @@ flow_stmt:
 import_stmt: import_as_names | import_from
 
 import_as_names: IMPORT dotted_names_as
-dotted_names_as: dotted_name_as | dotted_name_as ',' dotted_names_as
+dotted_names_as: dotted_name_as | dotted_name_as ',' dotted_names_as | dotted_name_as ','
 dotted_name_as: dotted_name | dotted_name AS NAME
 dotted_name: NAME | NAME '.' dotted_name
 
