@@ -83,7 +83,7 @@
 NAME ([_a-zA-Z][_a-zA-Z0-9]*)
 
 ESCAPED_CHAR (\\.|\\\n)
-STRING_PREFIX ("r"|"u"|"R"|"U"|"f"|"F"|"fr"|"Fr"|"fR"|"FR"|"rf"|"rF"|"Rf"|"RF")
+STRING_PREFIX ("r"|"u"|"R"|"U"|"f"|"F"|"fr"|"Fr"|"fR"|"FR"|"rf"|"rF"|"Rf"|"RF"|"b"|"B"|"br"|"Br"|"bR"|"BR"|"rb"|"rB"|"Rb"|"RB")
 STRING_QUOTE1 ('([^\\'\n]|{ESCAPED_CHAR})*')
 STRING_QUOTE2 (\"([^\\\"\n]|{ESCAPED_CHAR})*\")
 
