@@ -118,6 +118,7 @@ my_dict = {'name': wer&sesef, aadawd ^ sefseb: [2, 4, 3]}
 
 
 my_dict = { x: x*x for x in range(6)}
+{1, 2, 3}
 
 
 class NodeInfo:
