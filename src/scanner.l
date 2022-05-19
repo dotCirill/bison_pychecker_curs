@@ -340,7 +340,7 @@ or {
 
     for (int i = 0; i < yy_len; i++) {
         if (yytext[i] != indent_symbol) {
-            printf("Invalid indent (mixing space and tabs)!\n");
+            yyerror("Invalid indent (mixing space and tabs)!");
             exit(0);
         }
     }
@@ -362,7 +362,7 @@ or {
       while (yy_len < CURRENT_LEVEL_INDENT_COUNT) {
         indent_info.indent_level--;
         if (indent_info.indent_level < 0) {
-            printf("Fatal error: indent level is negative!\n");
+            yyerror("Fatal error: indent level is negative!\n");
             exit(1);
         }
 
