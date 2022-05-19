@@ -7,8 +7,12 @@ from tkinter import Y
 from ...a import b as e, c as d
 import a, b as c, e
 
-
-
+	# asdfasdf 
+	# asdfasdf
+	# asdfasdf
+	# asdfasdf
+	# asdfasdf
+	# asdfasdf
 
 func (f"{asd}")
 
@@ -122,6 +126,12 @@ my_dict = { x: x*x for x in range(6)}
 
 
 class NodeInfo:
-    def __init__(self, node):
-        aawdawdawd
-        asdasd
+	"""INFO
+	INFO
+	"""
+
+	# COMMENTS 
+
+	def __init__(self, node):
+		aawdawdawd
+		asdasd
