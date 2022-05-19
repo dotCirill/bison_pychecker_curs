@@ -213,6 +213,14 @@ with {
     return WITH;
 }
 
+async {
+    return ASYNC;
+}
+
+await {
+    return AWAIT;
+}
+
 "==" {
     return EQ;
 }

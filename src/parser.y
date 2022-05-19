@@ -79,6 +79,9 @@
 %token INDENT
 %token DEINDENT
 
+%token ASYNC
+%token AWAIT
+
 %%
 
 main: main_ {printf("Syntax is OK!\n");}
@@ -131,12 +134,16 @@ assert_stmt: ASSERT testlist
 
 compound_stmt: 
   if_stmt | while_stmt | for_stmt | with_stmt | funcdef | 
-  classdef | decorated | try_stmt
+  classdef | decorated | try_stmt | async_stmt
 
-decorated: decorators classdef | decorators funcdef
+decorated: decorators classdef | decorators funcdef | decorators async_funcdef
 decorators: decorator | decorator decorators
 decorator: '@' test NEWLINE
 
+async_stmt: 
+  async_funcdef  |
+  ASYNC with_stmt | 
+  ASYNC for_stmt
 if_stmt:  IF test ':' suite if_elifs if_else
 if_elifs: | ELIF test ':' suite if_elifs
 if_else: | ELSE ':' suite
@@ -215,7 +222,9 @@ factor_ops: '+' | '-' | '~'
 
 power_expr: atom_expr | atom_expr TWOSTAR factor_expr
 
-atom_expr: atom atom_expr_tailers
+atom_expr: 
+  atom atom_expr_tailers |
+  AWAIT atom atom_expr_tailers
 atom_expr_tailers: | atom_expr_tailer atom_expr_tailers
 atom_expr_tailer: 
     '(' arglist ')'
@@ -336,6 +345,8 @@ classdef:
 funcdef: 
   DEF NAME '(' ')' ':' suite |
   DEF NAME '(' varargslist ')' ':' suite
+
+async_funcdef: ASYNC funcdef
 
 %%
 
