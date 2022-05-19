@@ -137,4 +137,9 @@ class NodeInfo:
 		asdasd
 		for elt in junk: # separate loop avoids separate list of keys
 			del b2j[elt]
-		
+
+def make_file(self, fromlines, tolines, fromdesc='', todesc='',
+                context=False, numlines=5, *, charset='utf-8'):
+	pass
+
+def a(self, **kwargs): pass

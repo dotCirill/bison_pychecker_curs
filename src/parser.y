@@ -260,19 +260,9 @@ expr_mb_with_star: expr | '*' expr
 varargslist: 
   vararg | 
   vararg ',' |
-  vararg ',' varargslist |
-  vararg ',' varargslist_args
-varargslist_args:
-  vararg_args |
-  vararg_args ',' |
-  vararg_args ',' varargslist_kwards
-varargslist_kwards:
-  vararg_kwargs |
-  vararg_kwargs ','
-vararg: NAME var_arg_mb_eq
+  vararg ',' varargslist
+vararg: NAME var_arg_mb_eq | '*' | TWOSTAR | '*' NAME | TWOSTAR NAME
 var_arg_mb_eq: | '=' test
-vararg_args: '*' NAME
-vararg_kwargs: TWOSTAR NAME
 
 testlist: test | test ',' | test ',' testlist
 
