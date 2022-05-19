@@ -153,3 +153,5 @@ from django.views.generic.dates import (
     WeekArchiveView,
     YearArchiveView,
 )
+
+*path, view = viewname.split(":")
