@@ -135,3 +135,6 @@ class NodeInfo:
 	def __init__(self, node):
 		aawdawdawd
 		asdasd
+		for elt in junk: # separate loop avoids separate list of keys
+			del b2j[elt]
+		

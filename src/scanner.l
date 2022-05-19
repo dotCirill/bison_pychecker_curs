@@ -314,16 +314,18 @@ or {
     return yytext[0];
 }
 
+\n*([ \t]*#.*\n)*[ \t]*#.* {
+    // newlines at the start >= 0
+    // comment with newlines >= 0
+    // comment without newline = 1
+    // tabs and spaces at the begining are also ignored
+}
+
 \n+ {
     if (implicit_line_joining_opened_brackets) {
         YY_BREAK;
     }
     return NEWLINE;
-}
-
-[ \t]*#.*\n {
-    // comment
-    // tabs and spaces at the begining are also ignored
 }
 
 [ \t]+ {
