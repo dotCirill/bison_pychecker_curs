@@ -69,7 +69,7 @@
   }
 
   static void check_zero_indent() {
-    if (indent_info.now_newline && yytext[0] != ' ' && yytext[0] != '\t') {
+    if (indent_info.now_newline && yytext[0] != ' ' && yytext[0] != '\t' && yytext[0] != '\n') {
       zero_indent();
     }
   }
@@ -78,7 +78,7 @@
   #define CURRENT_LEVEL_INDENT_COUNT (indent_count[indent_info.indent_level])
 %}
 
-%option debug noyywrap nounistd yylineno outfile="scanner.c" header="scanner.h"
+%option noyywrap nounistd yylineno outfile="scanner.c" header="scanner.h"
 
 NAME ([_a-zA-Z][_a-zA-Z0-9]*)
 
