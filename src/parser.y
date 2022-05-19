@@ -81,8 +81,8 @@
 
 %%
 
-main: program {printf("Syntax is OK!\n");}
-program: stmt | stmt program
+main: NEWLINE program | program {printf("Syntax is OK!\n");}
+program: stmt | stmt program 
 stmt: simple_stmt | compound_stmt
 
 simple_stmt: small_stmt NEWLINE | small_stmt ';' NEWLINE | small_stmt ';' simple_stmt
