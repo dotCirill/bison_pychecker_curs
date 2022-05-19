@@ -332,6 +332,7 @@ or {
 
     if (indent_info.indent_level == 0) {
         indent_symbol = yytext[0];
+        indent_info.indent_by_space = indent_symbol == ' ';
         indent_info.indent_level++;
         CURRENT_LEVEL_INDENT_COUNT = yy_len;
         first_indent = 1;
